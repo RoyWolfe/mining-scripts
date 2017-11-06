@@ -10,14 +10,12 @@ CLOCK=150
 CLOCK_LO=0
 MEM=1000
 MEM_LO=0
-DEFAULTWATTS=130
+DEFAULTWATTS=100
 DEFAULTWATTS_LO=75
 FANSPEED=90
 FANSPEED_LO=45
 
-# TODO: use this table for wattages, rather than blanket number above
 declare -A wattages=( [0]=130 [1]=120 [2]=130 [3]=110 [4]=130 [5]=130 [6]=115 [7]=130 [8]=130 [9]=130 [10]=130 )
-# for w in "${!wattages[@]}"; do echo "$w - ${wattages[$w]}"; done
 # reset all clocks: nvidia-smi --rac
 
 # Command line handling
@@ -104,9 +102,8 @@ do
     echo "Setting wattage to $MYWATT for GPU $i"
     $SMICMD -i $i -pm 1
     $SMICMD -i $i -pl $MYWATT
-    $SMICMD -i $i -ac 4004,1911
+    #$SMICMD -i $i -ac 4004,1911
 
-    echo "Setting clock offsets for # $i ($CLOCK / $MEM) ..."
     $CMD -a [gpu:$i]/GPUPowerMizerMode=3 -a [gpu:$i]/GPUFanControlState=1 -a [fan:$i]/GPUTargetFanSpeed=$FANSPEED
     $CMD -a [gpu:$i]/GPUGraphicsClockOffset[3]=$CLOCK -a [gpu:$i]/GPUMemoryTransferRateOffset[3]=$MEM -a [gpu:$i]/GPULogoBrightness=0
 
