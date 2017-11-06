@@ -108,7 +108,7 @@ do
 
     echo "Setting clock offsets for # $i ($CLOCK / $MEM) ..."
     $CMD -a [gpu:$i]/GPUPowerMizerMode=3 -a [gpu:$i]/GPUFanControlState=1 -a [fan:$i]/GPUTargetFanSpeed=$FANSPEED
-    $CMD -a [gpu:$i]/GPUGraphicsClockOffset[3]=$CLOCK -a [gpu:$i]/GPUMemoryTransferRateOffset[3]=$MEM
+    $CMD -a [gpu:$i]/GPUGraphicsClockOffset[3]=$CLOCK -a [gpu:$i]/GPUMemoryTransferRateOffset[3]=$MEM -a [gpu:$i]/GPULogoBrightness=0
 
     let i=i+1
 done
